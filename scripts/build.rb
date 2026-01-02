@@ -9,10 +9,31 @@ require 'fileutils'
 SRC_DIR = 'src'
 DATA_DIR = File.join(SRC_DIR, 'data')
 PAGES_DIR = File.join(SRC_DIR, 'pages')
+STATIC_DIR = 'src/static'
 OUTPUT_DIR = 'public'
 
 # Ensure output directory exists
 FileUtils.mkdir_p(OUTPUT_DIR)
+
+# Copy static files to public directory
+if Dir.exist?(STATIC_DIR)
+  puts "Copying static files from #{STATIC_DIR}/ to #{OUTPUT_DIR}/..."
+  Dir.glob(File.join(STATIC_DIR, '**', '*'), File::FNM_DOTMATCH).each do |file|
+    next if File.directory?(file)
+    next if File.basename(file).start_with?('.')
+
+    relative_path = file.sub(STATIC_DIR + '/', '')
+    output_path = File.join(OUTPUT_DIR, relative_path)
+
+    # Ensure output subdirectories exist
+    FileUtils.mkdir_p(File.dirname(output_path))
+
+    # Copy file
+    FileUtils.cp(file, output_path)
+    puts "  ✓ Copied #{relative_path}"
+  end
+  puts ''
+end
 
 # Process all .erb files in src/pages/
 Dir.glob(File.join(PAGES_DIR, '**', '*.erb')).each do |template_file|
@@ -37,7 +58,7 @@ Dir.glob(File.join(PAGES_DIR, '**', '*.erb')).each do |template_file|
   erb = ERB.new(template_content)
 
   # Render template with translation data
-  puts "  Rendering..."
+  puts '  Rendering...'
   result = erb.result(binding)
 
   # Ensure output subdirectories exist

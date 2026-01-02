@@ -12,53 +12,55 @@ navigation:
 
 hero:
   title:
-    gradient: "Homelab Orchestration"
+    gradient: "Homelab Docker Compose"
     plain: "Simplified"
-  subtitle: "Bring Kubernetes-like workflows to your homelab. Minimal overhead, maximum control."
+  subtitle: "Bring Kubernetes-like workflows to your existing hosts. Start manual and minimalist, extend as you find fit."
 
 quick_start:
   label: "Quick Start"
   commands:
     - "gem install walheim"
-    - "# Initialize your homelab"
-    - "walheim init"
-    - "# Deploy your first service"
-    - "walheim deploy app.yml"
+    - "# Create a context for your homelab"
+    - "whctl context new homelab --data-dir ~/homelab"
+    - "# Add your first VM/host"
+    - "whctl create namespace minipc-01 --hostname 192.168.1.100 --username admin"
+    - "# Import an existing docker-compose app"
+    - "whctl import app nginx -n minipc-01 -f docker-compose.yml"
+    - "# View logs"
+    - "whctl logs app nginx -n minipc-01 --follow"
 
 features:
   section_title: "Built for Self-Hosters"
   items:
     - icon_color: "blue"
-      title: "Lightweight"
-      description: "No bloat. Pure Ruby implementation that runs on minimal resources. Perfect for Raspberry Pi and modest hardware."
-      icon_path: "M13 10V3L4 14h7v7l9-11h-7z"
+      icon: "files"
+      title: "File-Based Control Plane"
+      description: "Your laptop is the control plane. No databases, no etcd, no API servers. Just YAML files in a directory you manage and version control."
 
     - icon_color: "purple"
-      title: "Declarative"
-      description: "Familiar YAML manifests. Define your desired state, Walheim handles the rest. No complex DSLs to learn."
-      icon_path: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
+      icon: "terminal-window"
+      title: "No Agents Required"
+      description: "Uses SSH and rsync to deploy to your VMs. No daemons to install, no ports to open. If you can SSH to it, you can manage it."
 
     - icon_color: "emerald"
-      title: "Self-Contained"
-      description: "Zero external dependencies. Your homelab stays private and under your control. Works entirely offline."
-      icon_path: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+      icon: "package"
+      title: "Docker Compose Native"
+      description: "Simple one-command import from existing docker-compose.yml. Migration is just running `whctl import app`."
 
     - icon_color: "orange"
-      title: "Extensible"
-      description: "Plugin architecture for custom integrations. Adapt Walheim to your specific homelab needs."
-      icon_paths:
-        - "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-        - "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+      icon: "devices"
+      title: "Multi-Machine Management"
+      description: "Each namespace maps to a physical machine. Manage multiple VMs from one place with kubectl-style commands."
 
     - icon_color: "cyan"
-      title: "GitOps Ready"
-      description: "Version control your infrastructure. Automated deployments from Git repositories out of the box."
-      icon_path: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+      icon: "file-code"
+      title: "Direct Access to Compose"
+      description: "Compiles manifests into plain docker-compose.yml on the host. Need to debug? SSH in and edit the file directly, YOLO-style."
 
     - icon_color: "pink"
-      title: "Observable"
-      description: "Built-in monitoring and health checks. Know the state of your services at a glance."
-      icon_path: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+      icon: "sketch-logo"
+      title: "Pure Ruby (For Now)"
+      description: "Single gem with minimal dependencies. No complex runtime. Works on any machine with Ruby and SSH. Go/Rust rewrite on the roadmap for single-binary distribution."
 
 cta:
   title: "Start Building Your Homelab"
@@ -76,5 +78,5 @@ footer:
 
 # Command copy functionality
 copy:
-  command_text: "gem install walheim\\nwalheim init\\nwalheim deploy app.yml"
+  command_text: "gem install walheim\\nwhctl context new homelab --data-dir ~/homelab\\nwhctl create namespace minipc-01 --hostname 192.168.1.100 --username admin\\nwhctl import app nginx -n minipc-01 -f docker-compose.yml\\nwhctl logs app nginx -n minipc-01 --follow"
   success_message: "Command copied to clipboard!"
