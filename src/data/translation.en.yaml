@@ -26,6 +26,8 @@ quick_start:
     - "whctl create namespace minipc-01 --hostname 192.168.1.100 --username admin"
     - "# Import an existing docker-compose app"
     - "whctl import app nginx -n minipc-01 -f docker-compose.yml"
+    - "# List all apps in minipc-01 namespace/host"
+    - "whctl get apps -n minipc-01"
     - "# View logs"
     - "whctl logs app nginx -n minipc-01 --follow"
 
