@@ -46,8 +46,8 @@ features:
 
     - icon_color: "emerald"
       icon: "package"
-      title: "Docker Compose Native"
-      description: "Simple one-command import from existing docker-compose.yml. Migration is just running `whctl import app`."
+      title: "Powered by Docker Compose"
+      description: "Uses Docker Compose under the hood. Simple one-command import from existing docker-compose.yml. Migration is just running `whctl import app`."
 
     - icon_color: "orange"
       icon: "devices"
